@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -9,11 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private readonly TOKEN_KEY = 'auth_token';
- 
+
   constructor(private http:HttpClient) { }
 
   _isLoggedIn(): boolean {
-    console.log("valor do _isLoggedIn()", !!localStorage.getItem('auth_token'));    
+    console.log("valor do _isLoggedIn()", !!localStorage.getItem('auth_token'));
     return !!localStorage.getItem('auth_token');
   }
 
@@ -32,9 +32,9 @@ export class AuthService {
   private readonly apiUrl = 'http://localhost:8000/api';
 
   register(user:any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.apiUrl}/save`, user, { headers });
   }
-
 
   login(credentials: any): Observable<any>{
      return this.http.post(`${this.apiUrl}/login`, credentials);
