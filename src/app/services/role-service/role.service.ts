@@ -8,10 +8,10 @@ import { AuthService } from '../auth-service/auth.service';
   providedIn: 'root'
 })
 export class RoleService {
-  private apiUrl = 'http://localhost:8000/api/roles';
+  private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
-  
+
   getRoles(): Observable<any>{
     /*const token = this.authService.getToken();
     console.log("token - tô na tela de role", token);
@@ -19,7 +19,11 @@ export class RoleService {
       'Authorization': `Bearer ${token}`
     });
    return this.http.get<any>(this.apiUrl, { headers });*/
-   return this.http.get<any>(this.apiUrl);
+   return this.http.get<any>(`${this.apiUrl}/roles`);
+  }
+
+  getRoleListOptions(): Observable<any>{
+   return this.http.get<any>(`${this.apiUrl}/getRoles`);
   }
 
   getRole(id:number): Observable<any>{
@@ -27,7 +31,7 @@ export class RoleService {
   }
 
   createRole(role:any): Observable<any>{
-    return this.http.post<any>(this.apiUrl, role);
+    return this.http.post<any>(`${this.apiUrl}/roles`, role);
   }
 
   editRole(id: number): Observable<any>{
@@ -35,11 +39,11 @@ export class RoleService {
   }
 
   updateRole(id: number, role:any): Observable<any>{
-    return this.http.put<any>(`${this.apiUrl}/${id}`, role);
+    return this.http.put<any>(`${this.apiUrl}/roles/${id}`, role);
   }
 
   deleteRole(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/roles/${id}`);
   }
 
   givePermissions(id: number) {

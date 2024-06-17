@@ -1,6 +1,20 @@
 <div class="container">
   <h2>Role List</h2>
-  <button class="btn btn-info" routerLink="roles/create">Criar Role</button>
+  <button class="btn btn-info" routerLink="/createrole">Criar Role</button>
+  <div *ngIf="status && isVisible" class="alert alert-success">
+  <button (click)="closeDiv()" class="close-btn" style="position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 0, 0, 0);
+  width: 10px;
+  height:10px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 100%;">X</button>
+    {{ status }}
+  </div>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -14,7 +28,7 @@
         <td> {{ role.id }}</td>
         <td> {{ role.name }}</td>
         <td>
-          <button class="btn btn-secondary" routerLink="/roles/{{ role.id }}/edit"> Edit </button>
+          <button class="btn btn-secondary" routerLink="/roles/edit/{{ role.id }}"> Edit </button>
           &nbsp;
           <button class="btn btn-danger" (click)="deleteRole(role.id)">Delete</button>
         </td>
