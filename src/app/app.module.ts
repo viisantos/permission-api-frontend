@@ -17,17 +17,29 @@ import { NgModule, inject } from '@angular/core';
   import { RoleFormComponent } from './role-form/role-form.component';
   import { RoleService } from './services/role-service/role.service';
   import { AuthService } from './services/auth-service/auth.service';
-  
+  import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+  import { MatFormFieldModule } from '@angular/material/form-field';
+  import { MatSelectModule } from '@angular/material/select';
+  import { MatInputModule } from '@angular/material/input';
+  import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+  import { MultiSelectModule } from 'primeng/multiselect';
 
   const routes: Routes = [
-    { path: 'login', component: LoginComponent},
-    { path: 'register', component: RegisterComponent },
+    {
+      path: '',
+      component: AppComponent,
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      // Outras rotas públicas
+    ]},
     { path: 'logout', component:LogoutComponent },
     //{ path: 'roles', component:RoleComponent },
-    { path: 'roles/create', canActivate:([CanActivateAuthGuard]), component:RoleFormComponent },
-    { path: 'roles/{{roleId}}/create', canActivate:([CanActivateAuthGuard]), component:RoleFormComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'roles', canActivate:([CanActivateAuthGuard]), component: RoleComponent }
+    { path: 'roles', canActivate:([CanActivateAuthGuard]), component: RoleComponent },
+    { path: 'createrole' , canActivate:([CanActivateAuthGuard]), component: RoleFormComponent },
+    { path: 'roles/edit/:id', canActivate:([CanActivateAuthGuard]), component: RoleFormComponent }
+         
   ];
 
   @NgModule({
@@ -38,6 +50,11 @@ import { NgModule, inject } from '@angular/core';
       RouterModule,
       RouterOutlet,
       ReactiveFormsModule,
+      MatFormFieldModule,
+      MatSelectModule,
+      MatInputModule,
+      BrowserAnimationsModule,
+      MultiSelectModule,
       [RouterModule.forRoot(routes)]
     ],
     declarations: [
@@ -46,6 +63,7 @@ import { NgModule, inject } from '@angular/core';
       RegisterComponent,
       LogoutComponent,
       RoleComponent,
+      RoleFormComponent,
       LoginComponent
     ],
     exports: [RouterModule],
@@ -72,7 +90,8 @@ import { NgModule, inject } from '@angular/core';
           }
         ])
       ),
-      RoleService
+      RoleService,
+      provideAnimationsAsync()
     ],
     bootstrap: [AppComponent]
   })
