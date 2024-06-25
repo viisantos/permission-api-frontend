@@ -15,6 +15,7 @@ import { NgModule, inject } from '@angular/core';
   import { LogoutComponent } from './logout/logout.component';
   import { RoleComponent } from './role/role.component';
   import { RoleFormComponent } from './role-form/role-form.component';
+  import { UserComponent } from './user/user/user.component';
   import { RoleService } from './services/role-service/role.service';
   import { AuthService } from './services/auth-service/auth.service';
   import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -36,10 +37,13 @@ import { NgModule, inject } from '@angular/core';
     { path: 'logout', component:LogoutComponent },
     //{ path: 'roles', component:RoleComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'users', canActivate:([CanActivateAuthGuard]), component: UserComponent },
+    { path: 'createuser' , canActivate:([CanActivateAuthGuard]), component: RegisterComponent },
+    { path: 'users/edit/:id', canActivate:([CanActivateAuthGuard]), component: RegisterComponent },
     { path: 'roles', canActivate:([CanActivateAuthGuard]), component: RoleComponent },
     { path: 'createrole' , canActivate:([CanActivateAuthGuard]), component: RoleFormComponent },
     { path: 'roles/edit/:id', canActivate:([CanActivateAuthGuard]), component: RoleFormComponent }
-         
+
   ];
 
   @NgModule({
@@ -64,7 +68,8 @@ import { NgModule, inject } from '@angular/core';
       LogoutComponent,
       RoleComponent,
       RoleFormComponent,
-      LoginComponent
+      LoginComponent,
+      UserComponent
     ],
     exports: [RouterModule],
     providers: [
@@ -81,8 +86,15 @@ import { NgModule, inject } from '@angular/core';
               if(authToken != null){
                   //console.log("Aqui é do interceptor :", authToken);
                   const cloned = req.clone({
-                    headers: req.headers.set('Authorization', `Bearer ${authToken}`)
+                    withCredentials: true,
+                    setHeaders: {
+                      'Access-Control-Allow-Origin': '*',
+                      'Authorization': `Bearer ${authToken}`,
+                      // Outros cabeçalhos
+                    }
+                    //headers: req.headers.set('Authorization', `Bearer ${authToken}`),
                   });
+                  console.log("request :", cloned);
                   return next(cloned);
               } else {
                 return next(req);

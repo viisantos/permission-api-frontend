@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { RoleService } from '../../services/role-service/role.service';
+import { UserService } from '../../services/user-service/user.service';
 
 @Component({
   selector: 'app-user',
@@ -9,8 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class UserComponent implements OnInit{
-  /*
   users: any[] = [];
+  status: string = '';
+  isVisible: boolean = false; 
 
   constructor(private userService: UserService){}
 
@@ -22,7 +24,12 @@ export class UserComponent implements OnInit{
 
   deleteUser(id: number): void {
     this.userService.deleteUser(id).subscribe(() => {
-      this.users = this.users.filter(user => user.id !== id);
+      this.users = this.users.filter(user => Number(user.id) !== id);
     });
-  }*/
+  }
+
+  closeDiv(){
+    this.isVisible = false;
+  }
+
 }

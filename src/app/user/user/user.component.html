@@ -1,1 +1,38 @@
-<p>user works!</p>
+<div class="container">
+  <h2>User List</h2>
+  <button class="btn btn-info" routerLink="/createuser">Adicionar Usuário</button>
+  <div *ngIf="status && isVisible" class="alert alert-success">
+  <button (click)="closeDiv()" class="close-btn" style="position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 0, 0, 0);
+  width: 10px;
+  height:10px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 100%;">X</button>
+    {{ status }}
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td> {{ user.id }}</td>
+        <td> {{ user.name }}</td>
+        <td>
+          <button class="btn btn-secondary" routerLink="/users/edit/{{ user.id }}"> Edit User </button>
+          &nbsp;
+          <button class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
