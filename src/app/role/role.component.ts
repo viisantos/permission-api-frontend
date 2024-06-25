@@ -24,11 +24,11 @@ export class RoleComponent implements OnInit {
     ngOnInit(): void {
       this.roleService.getRoles().subscribe(data => {
         this.roles = data;
-        //console.log(data);
-        if(this.roleformComponent.status !== null){
-          this.status = this.roleformComponent.status;
+        console.log(data);
+        //if(this.roleformComponent.status !== null){
+          //this.status = this.roleformComponent.status;
           //console.log("após atualização :", this.roleformComponent.status);
-        }
+        //}
       });
 
     }
