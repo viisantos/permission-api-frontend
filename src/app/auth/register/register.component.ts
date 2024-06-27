@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit{
       if(this.registerForm.valid){
           console.log("form recebido :", this.registerForm.value);
           this.authService.register(this.registerForm.value).subscribe({
-              next:(response: any) => {
+              next:(response: any) => {             
                 console.log("resposta do cadastro : ",response);
                 this.router.navigate(['/users']);
               },

@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http:HttpClient) { }
 
   _isLoggedIn(): boolean {
-    console.log("valor do _isLoggedIn()", !!localStorage.getItem('auth_token'));
+    //console.log("valor do _isLoggedIn()", !!localStorage.getItem('auth_token'));
     return !!localStorage.getItem('auth_token');
   }
 

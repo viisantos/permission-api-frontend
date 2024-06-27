@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RoleService {
+  
   private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -41,11 +42,16 @@ export class RoleService {
     return this.http.delete<any>(`${this.apiUrl}/roles/${id}`);
   }
 
-  givePermissions(id: number) {
-    this.router.navigate([`${this.apiUrl}/${id}/give-permissions`]);
+  getRolePermissions(id: number) {
+    return this.http.get<any>(`${this.apiUrl}/roles/${id}/add-permissions`);
   }
 
+  /*
+  givePermissions(id: number) {
+    this.router.navigate([`${this.apiUrl}/${id}/give-permissions`]);
+  }*/
+
   givePermissionsToRole(id: number, permissions:any):Observable<any>{
-    return this.http.put<any>(`${this.apiUrl}/${id}/give-permissions`, { permissions });
+    return this.http.put<any>(`${this.apiUrl}/roles/${id}/give-permissions`, { permissions });
   }
 }

@@ -1,6 +1,6 @@
 <div class="container">
-  <h2>Role List</h2>
-  <button class="btn btn-info" routerLink="/createrole">Criar Role</button>
+  <h2>User List</h2>
+  <button class="btn btn-info" routerLink="/createpermission">Adicionar Permissão</button>
   <div *ngIf="status && isVisible" class="alert alert-success">
   <button (click)="closeDiv()" class="close-btn" style="position: absolute;
   top: 10px;
@@ -24,15 +24,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let role of roles">
-        <td> {{ role.id }}</td>
-        <td> {{ role.name }}</td>
+      <tr *ngFor="let permission of permissions">
+        <td> {{ permission.id }}</td>
+        <td> {{ permission.name }}</td>
         <td>
-          <button class="btn btn-secondary" routerLink="/roles/edit/{{ role.id }}"> Edit </button>
+          <button class="btn btn-secondary" routerLink="/permissions/edit/{{ permission.id }}"> Edit Permission </button>
           &nbsp;
-          <button class="btn btn-danger" (click)="deleteRole(role.id)">Delete</button>
-          &nbsp;
-          <button class="btn btn-warning" routerLink="/roles/{{ role.id }}/manage-permissions"> Manage Permissions </button>
+          <button class="btn btn-danger" (click)="deletePermission(permission.id)">Delete</button>
         </td>
       </tr>
     </tbody>

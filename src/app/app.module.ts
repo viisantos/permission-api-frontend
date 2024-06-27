@@ -15,8 +15,12 @@ import { NgModule, inject } from '@angular/core';
   import { LogoutComponent } from './logout/logout.component';
   import { RoleComponent } from './role/role.component';
   import { RoleFormComponent } from './role-form/role-form.component';
+  import { PermissionComponent } from './permission/permission.component';
+  import { PermissionFormComponent } from './permission-form/permission-form.component';
+  import { AddPermissionsComponent } from './add-permissions/add-permissions.component';
   import { UserComponent } from './user/user/user.component';
   import { RoleService } from './services/role-service/role.service';
+  import { PermissionService } from './services/permission-service/permission.service';
   import { AuthService } from './services/auth-service/auth.service';
   import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
   import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,6 +28,7 @@ import { NgModule, inject } from '@angular/core';
   import { MatInputModule } from '@angular/material/input';
   import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   import { MultiSelectModule } from 'primeng/multiselect';
+  import { CheckboxModule } from 'primeng/checkbox';
 
   const routes: Routes = [
     {
@@ -42,7 +47,11 @@ import { NgModule, inject } from '@angular/core';
     { path: 'users/edit/:id', canActivate:([CanActivateAuthGuard]), component: RegisterComponent },
     { path: 'roles', canActivate:([CanActivateAuthGuard]), component: RoleComponent },
     { path: 'createrole' , canActivate:([CanActivateAuthGuard]), component: RoleFormComponent },
-    { path: 'roles/edit/:id', canActivate:([CanActivateAuthGuard]), component: RoleFormComponent }
+    { path: 'roles/edit/:id', canActivate:([CanActivateAuthGuard]), component: RoleFormComponent },
+    { path: 'permissions', canActivate:([CanActivateAuthGuard]), component: PermissionComponent },
+    { path: 'createpermission' , canActivate:([CanActivateAuthGuard]), component: PermissionFormComponent },
+    { path: 'roles/:id/manage-permissions' , canActivate:([CanActivateAuthGuard]), component: AddPermissionsComponent },
+    { path: 'permissions/edit/:id', canActivate:([CanActivateAuthGuard]), component: PermissionFormComponent }
 
   ];
 
@@ -59,6 +68,7 @@ import { NgModule, inject } from '@angular/core';
       MatInputModule,
       BrowserAnimationsModule,
       MultiSelectModule,
+      CheckboxModule,
       [RouterModule.forRoot(routes)]
     ],
     declarations: [
@@ -68,6 +78,9 @@ import { NgModule, inject } from '@angular/core';
       LogoutComponent,
       RoleComponent,
       RoleFormComponent,
+      PermissionComponent,
+      PermissionFormComponent,
+      AddPermissionsComponent,
       LoginComponent,
       UserComponent
     ],
@@ -103,6 +116,7 @@ import { NgModule, inject } from '@angular/core';
         ])
       ),
       RoleService,
+      PermissionService,
       provideAnimationsAsync()
     ],
     bootstrap: [AppComponent]

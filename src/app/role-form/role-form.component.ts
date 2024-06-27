@@ -44,6 +44,7 @@ export class RoleFormComponent implements OnInit{
       if(this.roleForm.valid){
         this.roleService.createRole(this.roleForm.value).subscribe((response) => {
         this.status = response.message;
+        this.isVisible = true;
         this.router.navigate(['/roles']);
       });
     }
@@ -54,6 +55,7 @@ export class RoleFormComponent implements OnInit{
           this.roleService.updateRole(roleId, this.roleForm.value).subscribe((response) => {
             console.log(response);
             this.status = response.message;
+            this.isVisible = true;
             this.router.navigate(['/roles']);
           });
         }
